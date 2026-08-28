@@ -1,5 +1,4 @@
 function createPlan() {
-
     const subject = document.getElementById("subject").value;
     const examDate = document.getElementById("examDate").value;
     const studyTime = document.getElementById("studyTime").value;
@@ -20,7 +19,6 @@ function createPlan() {
 
 
 function addTask() {
-
     const input = document.getElementById("taskInput");
     const task = input.value.trim();
 
@@ -42,9 +40,7 @@ function addTask() {
 
 
 function askAssistant() {
-
-    const question =
-        document.getElementById("question").value;
+    const question = document.getElementById("question").value;
 
     if (question.trim() === "") {
         document.getElementById("answer").innerText =
@@ -55,6 +51,10 @@ function askAssistant() {
     document.getElementById("answer").innerText =
         "🤖 คำแนะนำ: ลองแบ่งเนื้อหาเป็นหัวข้อเล็ก ๆ แล้วอ่านจากหัวข้อที่สำคัญก่อน จากนั้นลองทำโจทย์เพื่อเช็กความเข้าใจ";
 }
+
+
+/* ===== QUIZ ===== */
+
 let score = 0;
 let quizAnswered = false;
 
@@ -66,17 +66,17 @@ function checkAnswer(answer) {
 
     quizAnswered = true;
 
+    const result = document.getElementById("quizResult");
+
     if (answer === 10) {
 
         score = 1;
 
-        document.getElementById("quizResult").innerText =
-            "✅ ถูกต้อง! เก่งมาก";
+        result.innerText = "✅ ถูกต้อง! เก่งมาก 🎉";
 
     } else {
 
-        document.getElementById("quizResult").innerText =
-            "❌ ยังไม่ถูก ลองทบทวนอีกครั้งนะ";
+        result.innerText = "❌ ยังไม่ถูก ลองทบทวนอีกครั้งนะ";
     }
 
     document.getElementById("score").innerText = score;
