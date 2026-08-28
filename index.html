@@ -42,7 +42,31 @@
             <ul id="taskList"></ul>
 
         </section>
+<section class="card">
+    <h2>📝 Quiz</h2>
 
+    <p id="quizQuestion">
+        5 + 5 มีค่าเท่าไร?
+    </p>
+
+    <button onclick="checkAnswer(10)">10</button>
+    <button onclick="checkAnswer(15)">15</button>
+    <button onclick="checkAnswer(20)">20</button>
+
+    <p id="quizResult"></p>
+</section>
+
+<section class="card">
+    <h2>📊 My Progress</h2>
+
+    <p>คะแนน Quiz: <span id="score">0</span></p>
+
+    <div class="progress-container">
+        <div id="progressBar"></div>
+    </div>
+
+    <p id="progressText">0%</p>
+</section>
 
         <section class="card">
             <h2>🤖 Study Assistant</h2>
