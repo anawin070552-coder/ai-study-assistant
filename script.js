@@ -55,3 +55,37 @@ function askAssistant() {
     document.getElementById("answer").innerText =
         "🤖 คำแนะนำ: ลองแบ่งเนื้อหาเป็นหัวข้อเล็ก ๆ แล้วอ่านจากหัวข้อที่สำคัญก่อน จากนั้นลองทำโจทย์เพื่อเช็กความเข้าใจ";
 }
+let score = 0;
+let quizAnswered = false;
+
+function checkAnswer(answer) {
+
+    if (quizAnswered) {
+        return;
+    }
+
+    quizAnswered = true;
+
+    if (answer === 10) {
+
+        score = 1;
+
+        document.getElementById("quizResult").innerText =
+            "✅ ถูกต้อง! เก่งมาก";
+
+    } else {
+
+        document.getElementById("quizResult").innerText =
+            "❌ ยังไม่ถูก ลองทบทวนอีกครั้งนะ";
+    }
+
+    document.getElementById("score").innerText = score;
+
+    const progress = score * 100;
+
+    document.getElementById("progressBar").style.width =
+        progress + "%";
+
+    document.getElementById("progressText").innerText =
+        progress + "%";
+}
