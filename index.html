@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Study Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>🤖 AI Study Assistant</h1>
+        <p>ผู้ช่วยวางแผนการเรียนของคุณ</p>
+    </header>
+
+    <main>
+
+        <section class="card">
+            <h2>📚 Study Planner</h2>
+
+            <input id="subject" type="text" placeholder="ชื่อวิชา เช่น คณิตศาสตร์">
+
+            <input id="examDate" type="date">
+
+            <input id="studyTime" type="number" placeholder="เวลาอ่าน (ชั่วโมง)">
+
+            <button onclick="createPlan()">สร้างแผนการอ่าน</button>
+
+            <p id="plan"></p>
+        </section>
+
+
+        <section class="card">
+            <h2>✅ To-do List</h2>
+
+            <div class="todo-input">
+                <input id="taskInput" type="text" placeholder="เพิ่มงานที่ต้องทำ">
+                <button onclick="addTask()">เพิ่ม</button>
+            </div>
+
+            <ul id="taskList"></ul>
+
+        </section>
+
+
+        <section class="card">
+            <h2>🤖 Study Assistant</h2>
+
+            <textarea id="question"
+                placeholder="เช่น พรุ่งนี้สอบคณิต ควรอ่านยังไงดี?"></textarea>
+
+            <button onclick="askAssistant()">ถามผู้ช่วย</button>
+
+            <p id="answer"></p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>AI Study Assistant • Computer Engineering Project</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
