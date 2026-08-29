@@ -857,7 +857,119 @@ function updateStreak() {
     }
 
 }
+/* ========================
+   V6 DASHBOARD
+======================== */
 
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.stat-card span {
+    font-size: 25px;
+}
+
+.stat-card p {
+    color: var(--muted);
+    margin: 12px 0 5px;
+    font-size: 14px;
+}
+
+.stat-card h3 {
+    font-size: 32px;
+    margin: 0;
+}
+
+.stat-card small {
+    color: var(--muted);
+}
+
+.chart-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 22px;
+}
+
+.chart-title {
+    margin-bottom: 25px;
+}
+
+.chart-title h3 {
+    margin-top: 5px;
+}
+
+.training-chart {
+    height: 190px;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 20px;
+}
+
+.chart-column {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+.chart-bar {
+    width: 100%;
+    max-width: 45px;
+    min-height: 5px;
+    background: var(--orange);
+    border-radius: 8px 8px 3px 3px;
+    transition: 0.3s;
+}
+
+.chart-bar:hover {
+    transform: scaleY(1.05);
+}
+
+.chart-value {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.chart-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+}
+
+@media (max-width: 700px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .stat-card h3 {
+        font-size: 27px;
+    }
+
+    .training-chart {
+        height: 160px;
+    }
+
+}
 
 // เริ่มต้น Calendar
 
