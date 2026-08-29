@@ -6,7 +6,11 @@
 <title>CourtPlan 🏀</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 body{
   font-family:Arial,sans-serif;
@@ -15,10 +19,20 @@ body{
   min-height:100vh;
 }
 
+button,input,select{
+  font-family:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+  font-weight:bold;
+}
+
 .container{
   width:min(1100px,92%);
   margin:auto;
-  padding:55px 0;
+  padding:45px 0;
 }
 
 .hero{
@@ -27,7 +41,7 @@ body{
 
 .label{
   color:#ff8500;
-  font-size:15px;
+  font-size:14px;
   font-weight:bold;
   letter-spacing:3px;
   margin-bottom:15px;
@@ -39,28 +53,24 @@ h1{
   letter-spacing:-3px;
 }
 
-.orange{color:#ff8500}
+.orange{
+  color:#ff8500;
+}
 
 .subtitle{
   color:#999;
   font-size:18px;
-  margin:25px 0;
   line-height:1.6;
-}
-
-button{
-  border:0;
-  cursor:pointer;
-  font-weight:bold;
-  border-radius:14px;
-  transition:.2s;
+  margin:25px 0;
 }
 
 .main-btn{
   background:#ff8500;
   color:#111;
   padding:17px 25px;
+  border-radius:14px;
   font-size:16px;
+  transition:.2s;
 }
 
 .main-btn:hover{
@@ -114,6 +124,7 @@ button{
 .goal-top{
   display:flex;
   justify-content:space-between;
+  gap:15px;
   margin-bottom:12px;
 }
 
@@ -131,6 +142,8 @@ button{
   transition:.5s;
 }
 
+/* CALENDAR */
+
 .calendar{
   display:grid;
   grid-template-columns:repeat(7,1fr);
@@ -143,6 +156,13 @@ button{
   border:1px solid #25252b;
   border-radius:16px;
   padding:13px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.day:hover{
+  transform:translateY(-2px);
+  border-color:#ff8500;
 }
 
 .day.active{
@@ -164,6 +184,8 @@ button{
   color:#ff8500;
   font-size:12px;
 }
+
+/* WORKOUT */
 
 .workouts{
   display:grid;
@@ -191,6 +213,7 @@ button{
   background:#25252a;
   color:#aaa;
   padding:10px 13px;
+  border-radius:12px;
   font-size:17px;
 }
 
@@ -205,7 +228,7 @@ button{
   padding:35px;
 }
 
-/* modal */
+/* MODAL */
 
 .modal{
   display:none;
@@ -224,6 +247,8 @@ button{
 
 .modal-box{
   width:min(500px,100%);
+  max-height:90vh;
+  overflow:auto;
   background:#151519;
   border:1px solid #303036;
   border-radius:24px;
@@ -261,6 +286,7 @@ input,select{
   background:#29292e;
   color:white;
   padding:15px;
+  border-radius:12px;
 }
 
 .save{
@@ -268,6 +294,7 @@ input,select{
   background:#ff8500;
   color:#111;
   padding:15px;
+  border-radius:12px;
 }
 
 footer{
@@ -276,7 +303,15 @@ footer{
   padding:55px 0 20px;
 }
 
+/* IPAD / MOBILE */
+
 @media(max-width:700px){
+
+  .container{
+    width:92%;
+    padding:30px 0;
+  }
+
   .stats{
     grid-template-columns:1fr;
   }
@@ -286,7 +321,16 @@ footer{
   }
 
   .day{
-    min-height:90px;
+    min-height:110px;
+    padding:16px;
+  }
+
+  .day-number{
+    font-size:26px;
+  }
+
+  .main-btn{
+    width:100%;
   }
 }
 </style>
@@ -296,8 +340,13 @@ footer{
 
 <div class="container">
 
+  <!-- HERO -->
+
   <section class="hero">
-    <div class="label">BASKETBALL TRAINING</div>
+
+    <div class="label">
+      BASKETBALL TRAINING
+    </div>
 
     <h1>
       Train smart.<br>
@@ -312,46 +361,92 @@ footer{
     <button class="main-btn" onclick="openModal()">
       ＋ สร้างตารางซ้อม
     </button>
+
   </section>
 
 
   <!-- STATS -->
 
   <section class="section">
-    <div class="section-title">TRAINING STATS</div>
+
+    <div class="section-title">
+      TRAINING STATS
+    </div>
 
     <div class="stats">
 
       <div class="card">
-        <div class="stat-label">ซ้อมทั้งหมด</div>
-        <div class="stat-number" id="totalWorkouts">0</div>
-        <div class="stat-label">ครั้ง</div>
+        <div class="stat-label">
+          ซ้อมทั้งหมด
+        </div>
+
+        <div class="stat-number" id="totalWorkouts">
+          0
+        </div>
+
+        <div class="stat-label">
+          ครั้ง
+        </div>
       </div>
 
-      <div class="card">
-        <div class="stat-label">เวลาซ้อมรวม</div>
-        <div class="stat-number" id="totalMinutes">0</div>
-        <div class="stat-label">นาที</div>
-      </div>
 
       <div class="card">
-        <div class="stat-label">🔥 Training Streak</div>
-        <div class="stat-number" id="streak">0</div>
-        <div class="stat-label">วัน</div>
+        <div class="stat-label">
+          เวลาซ้อมรวม
+        </div>
+
+        <div class="stat-number" id="totalMinutes">
+          0
+        </div>
+
+        <div class="stat-label">
+          นาที
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="stat-label">
+          🔥 Training Streak
+        </div>
+
+        <div class="stat-number" id="streak">
+          0
+        </div>
+
+        <div class="stat-label">
+          วัน
+        </div>
       </div>
 
     </div>
 
+
     <div class="card goal">
+
       <div class="goal-top">
-        <b>🎯 เป้าหมายสัปดาห์นี้</b>
-        <span id="goalText">0 / 5 ครั้ง</span>
+
+        <b>
+          🎯 เป้าหมายสัปดาห์นี้
+        </b>
+
+        <span id="goalText">
+          0 / 5 ครั้ง
+        </span>
+
       </div>
 
       <div class="progress">
-        <div class="progress-bar" id="progress"></div>
+
+        <div
+          class="progress-bar"
+          id="progress">
+        </div>
+
       </div>
+
     </div>
+
   </section>
 
 
@@ -359,22 +454,38 @@ footer{
 
   <section class="section">
 
-    <div class="section-title">WEEKLY CALENDAR</div>
-    <h2>สัปดาห์นี้</h2>
+    <div class="section-title">
+      WEEKLY CALENDAR
+    </div>
 
-    <div class="calendar" id="calendar"></div>
+    <h2>
+      สัปดาห์นี้
+    </h2>
+
+    <div
+      class="calendar"
+      id="calendar">
+    </div>
 
   </section>
 
 
-  <!-- WORKOUT LIST -->
+  <!-- WORKOUT PLAN -->
 
   <section class="section">
 
-    <div class="section-title">WORKOUT PLAN</div>
-    <h2>ตารางซ้อมของฉัน</h2>
+    <div class="section-title">
+      WORKOUT PLAN
+    </div>
 
-    <div class="workouts" id="workouts"></div>
+    <h2>
+      ตารางซ้อมของฉัน
+    </h2>
+
+    <div
+      class="workouts"
+      id="workouts">
+    </div>
 
   </section>
 
@@ -388,35 +499,94 @@ footer{
 
 <!-- MODAL -->
 
-<div class="modal" id="modal">
+<div
+  class="modal"
+  id="modal">
 
   <div class="modal-box">
 
-    <h2>🏀 เพิ่มตารางซ้อม</h2>
+    <h2>
+      🏀 เพิ่มตารางซ้อม
+    </h2>
 
-    <label class="form-label">วันที่</label>
-    <input type="date" id="date">
 
-    <label class="form-label">ประเภทการซ้อม</label>
+    <label class="form-label">
+      วันที่
+    </label>
+
+    <input
+      type="date"
+      id="date">
+
+
+    <label class="form-label">
+      ประเภทการซ้อม
+    </label>
 
     <select id="type">
-      <option>🏀 Ball Handling</option>
-      <option>🎯 Shooting</option>
-      <option>⚡ Speed & Agility</option>
-      <option>💪 Strength</option>
-      <option>🛡️ Defense</option>
-      <option>🏃 Conditioning</option>
+
+      <option>
+        🏀 Ball Handling
+      </option>
+
+      <option>
+        🎯 Shooting
+      </option>
+
+      <option>
+        ⚡ Speed & Agility
+      </option>
+
+      <option>
+        💪 Strength
+      </option>
+
+      <option>
+        🛡️ Defense
+      </option>
+
+      <option>
+        🏃 Conditioning
+      </option>
+
     </select>
 
-    <label class="form-label">เวลาเริ่ม</label>
-    <input type="time" id="time" value="17:00">
 
-    <label class="form-label">ระยะเวลา (นาที)</label>
-    <input type="number" id="duration" value="60" min="5">
+    <label class="form-label">
+      เวลาเริ่ม
+    </label>
+
+    <input
+      type="time"
+      id="time"
+      value="17:00">
+
+
+    <label class="form-label">
+      ระยะเวลา (นาที)
+    </label>
+
+    <input
+      type="number"
+      id="duration"
+      value="60"
+      min="5">
+
 
     <div class="modal-actions">
-      <button class="cancel" onclick="closeModal()">ยกเลิก</button>
-      <button class="save" onclick="addWorkout()">บันทึก</button>
+
+      <button
+        class="cancel"
+        onclick="closeModal()">
+        ยกเลิก
+      </button>
+
+      <button
+        class="save"
+        onclick="addWorkout()">
+        บันทึก
+      </button>
+
     </div>
 
   </div>
@@ -427,38 +597,50 @@ footer{
 <script>
 
 let workouts =
-JSON.parse(localStorage.getItem("courtplan_workouts")) || [];
+  JSON.parse(
+    localStorage.getItem("courtplan_workouts")
+  ) || [];
 
 
-/* ---------- SAVE ---------- */
+/* SAVE */
 
 function save(){
+
   localStorage.setItem(
     "courtplan_workouts",
     JSON.stringify(workouts)
   );
+
 }
 
 
-/* ---------- MODAL ---------- */
+/* MODAL */
 
-function openModal(){
+function openModal(selectedDate){
 
-  document.getElementById("modal")
+  document
+    .getElementById("modal")
     .classList.add("show");
 
-  document.getElementById("date").value =
-    new Date().toISOString().split("T")[0];
+  document
+    .getElementById("date")
+    .value =
+      selectedDate ||
+      new Date().toISOString().split("T")[0];
+
 }
+
 
 function closeModal(){
 
-  document.getElementById("modal")
+  document
+    .getElementById("modal")
     .classList.remove("show");
+
 }
 
 
-/* ---------- ADD WORKOUT ---------- */
+/* ADD */
 
 function addWorkout(){
 
@@ -472,120 +654,63 @@ function addWorkout(){
     document.getElementById("time").value;
 
   const duration =
-    Number(document.getElementById("duration").value);
+    Number(
+      document.getElementById("duration").value
+    );
 
-  if(!date || !duration){
+
+  if(!date || !duration || duration < 5){
+
     alert("กรุณากรอกข้อมูลให้ครบ");
+
     return;
+
   }
 
+
   workouts.push({
+
     id:Date.now(),
-    date,
-    type,
-    time,
-    duration
+
+    date:date,
+
+    type:type,
+
+    time:time,
+
+    duration:duration
+
   });
 
+
   save();
+
   closeModal();
+
   render();
+
 }
 
 
-/* ---------- DELETE ---------- */
+/* DELETE */
 
 function deleteWorkout(id){
 
   workouts =
-    workouts.filter(w => w.id !== id);
-
-  save();
-  render();
-}
-
-
-/* ---------- STATS ---------- */
-
-function updateStats(){
-
-  const total =
-    workouts.length;
-
-  const minutes =
-    workouts.reduce(
-      (sum,w)=>sum + Number(w.duration),0
+    workouts.filter(
+      w => w.id !== id
     );
 
-  document.getElementById("totalWorkouts")
-    .textContent = total;
+  save();
 
-  document.getElementById("totalMinutes")
-    .textContent = minutes;
+  render();
 
-  const weekCount =
-    getThisWeekWorkouts().length;
-
-  document.getElementById("goalText")
-    .textContent = weekCount + " / 5 ครั้ง";
-
-  document.getElementById("progress")
-    .style.width =
-      Math.min(weekCount / 5 * 100,100) + "%";
-
-  document.getElementById("streak")
-    .textContent = calculateStreak();
 }
 
 
-/* ---------- THIS WEEK ---------- */
+/* WEEK */
 
 function getThisWeekWorkouts(){
-
-  const now = new Date();
-
-  const day =
-    now.getDay();
-
-  const monday =
-    new Date(now);
-
-  monday.setDate(
-    now.getDate() - (day === 0 ? 6 : day - 1)
-  );
-
-  monday.setHours(0,0,0,0);
-
-  const sunday =
-    new Date(monday);
-
-  sunday.setDate(
-    monday.getDate()+6
-  );
-
-  sunday.setHours(23,59,59,999);
-
-  return workouts.filter(w => {
-
-    const d = new Date(w.date);
-
-    return d >= monday && d <= sunday;
-
-  });
-}
-
-
-/* ---------- CALENDAR ---------- */
-
-function renderCalendar(){
-
-  const box =
-    document.getElementById("calendar");
-
-  box.innerHTML = "";
-
-  const names =
-    ["จ.","อ.","พ.","พฤ.","ศ.","ส.","อา."];
 
   const now =
     new Date();
@@ -596,9 +721,138 @@ function renderCalendar(){
   const monday =
     new Date(now);
 
+
   monday.setDate(
-    now.getDate() - (day === 0 ? 6 : day - 1)
+    now.getDate() -
+    (day === 0 ? 6 : day - 1)
   );
+
+  monday.setHours(
+    0,0,0,0
+  );
+
+
+  const sunday =
+    new Date(monday);
+
+  sunday.setDate(
+    monday.getDate() + 6
+  );
+
+  sunday.setHours(
+    23,59,59,999
+  );
+
+
+  return workouts.filter(w => {
+
+    const d =
+      new Date(w.date);
+
+    return d >= monday &&
+           d <= sunday;
+
+  });
+
+}
+
+
+/* STATS */
+
+function updateStats(){
+
+  const total =
+    workouts.length;
+
+
+  const minutes =
+    workouts.reduce(
+      (sum,w) =>
+        sum + Number(w.duration),
+      0
+    );
+
+
+  document
+    .getElementById("totalWorkouts")
+    .textContent =
+      total;
+
+
+  document
+    .getElementById("totalMinutes")
+    .textContent =
+      minutes;
+
+
+  const weekCount =
+    getThisWeekWorkouts().length;
+
+
+  document
+    .getElementById("goalText")
+    .textContent =
+      weekCount + " / 5 ครั้ง";
+
+
+  document
+    .getElementById("progress")
+    .style.width =
+      Math.min(
+        weekCount / 5 * 100,
+        100
+      ) + "%";
+
+
+  document
+    .getElementById("streak")
+    .textContent =
+      calculateStreak();
+
+}
+
+
+/* CALENDAR */
+
+function renderCalendar(){
+
+  const box =
+    document.getElementById("calendar");
+
+  box.innerHTML = "";
+
+
+  const names =
+    [
+      "จ.",
+      "อ.",
+      "พ.",
+      "พฤ.",
+      "ศ.",
+      "ส.",
+      "อา."
+    ];
+
+
+  const now =
+    new Date();
+
+  const todayISO =
+    now.toISOString().split("T")[0];
+
+
+  const day =
+    now.getDay();
+
+
+  const monday =
+    new Date(now);
+
+  monday.setDate(
+    now.getDate() -
+    (day === 0 ? 6 : day - 1)
+  );
+
 
   for(let i=0;i<7;i++){
 
@@ -606,22 +860,41 @@ function renderCalendar(){
       new Date(monday);
 
     d.setDate(
-      monday.getDate()+i
+      monday.getDate() + i
     );
+
 
     const iso =
       d.toISOString().split("T")[0];
 
+
     const dayWorkouts =
-      workouts.filter(w=>w.date===iso);
+      workouts.filter(
+        w => w.date === iso
+      );
+
 
     const div =
       document.createElement("div");
 
+
     div.className =
       "day" +
-      (iso === new Date().toISOString().split("T")[0]
-        ? " active" : "");
+      (
+        iso === todayISO
+          ? " active"
+          : ""
+      );
+
+
+    /* กดวันที่ */
+
+    div.onclick = function(){
+
+      openModal(iso);
+
+    };
+
 
     div.innerHTML = `
 
@@ -635,11 +908,15 @@ function renderCalendar(){
 
       ${
         dayWorkouts.length
+
         ?
+
         `<div class="day-workout">
           🏀 ${dayWorkouts.length} ซ้อม
         </div>`
+
         :
+
         `<div class="day-name">
           พัก
         </div>`
@@ -647,12 +924,15 @@ function renderCalendar(){
 
     `;
 
+
     box.appendChild(div);
+
   }
+
 }
 
 
-/* ---------- WORKOUT LIST ---------- */
+/* WORKOUT LIST */
 
 function renderWorkouts(){
 
@@ -661,37 +941,66 @@ function renderWorkouts(){
 
   box.innerHTML = "";
 
+
   if(!workouts.length){
 
     box.innerHTML = `
+
       <div class="card empty">
-        ยังไม่มีตารางซ้อม 🏀<br>
-        กด “＋ สร้างตารางซ้อม” เพื่อเริ่มต้น
+
+        ยังไม่มีตารางซ้อม 🏀
+        <br><br>
+
+        กด
+        “＋ สร้างตารางซ้อม”
+        เพื่อเริ่มต้น
+
       </div>
+
     `;
 
     return;
+
   }
+
 
   const sorted =
     [...workouts].sort(
-      (a,b)=>
-        new Date(b.date)-new Date(a.date)
+      (a,b) => {
+
+        const dateA =
+          new Date(
+            a.date + "T" + a.time
+          );
+
+        const dateB =
+          new Date(
+            b.date + "T" + b.time
+          );
+
+        return dateB - dateA;
+
+      }
     );
 
-  sorted.forEach(w=>{
+
+  sorted.forEach(w => {
 
     const div =
       document.createElement("div");
 
+
     div.className =
       "card workout";
+
 
     div.innerHTML = `
 
       <div class="workout-info">
 
-        <h3>${w.type}</h3>
+        <h3>
+          ${w.type}
+        </h3>
 
         <p>
           ${formatDate(w.date)}
@@ -701,25 +1010,32 @@ function renderWorkouts(){
 
       </div>
 
+
       <button
         class="delete"
         onclick="deleteWorkout(${w.id})">
+
         🗑️
+
       </button>
 
     `;
 
+
     box.appendChild(div);
 
   });
+
 }
 
 
-/* ---------- DATE ---------- */
+/* DATE */
 
 function formatDate(date){
 
-  return new Date(date).toLocaleDateString(
+  return new Date(
+    date + "T00:00:00"
+  ).toLocaleDateString(
     "th-TH",
     {
       day:"numeric",
@@ -727,74 +1043,107 @@ function formatDate(date){
       year:"numeric"
     }
   );
+
 }
 
 
-/* ---------- STREAK ---------- */
+/* STREAK */
 
 function calculateStreak(){
 
   if(!workouts.length)
     return 0;
 
+
   const dates =
-    [...new Set(
-      workouts.map(w=>w.date)
-    )].sort().reverse();
+    [
+      ...new Set(
+        workouts.map(
+          w => w.date
+        )
+      )
+    ].sort().reverse();
+
+
+  const today =
+    new Date();
+
+  today.setHours(
+    0,0,0,0
+  );
+
 
   let streak = 0;
 
-  let current =
-    new Date();
 
-  current.setHours(0,0,0,0);
+  for(let i=0;i<dates.length;i++){
 
-  for(const date of dates){
+    const expected =
+      new Date(today);
 
-    const d =
-      new Date(date);
 
-    d.setHours(0,0,0,0);
+    expected.setDate(
+      today.getDate() - i
+    );
 
-    const diff =
-      Math.round(
-        (current-d)/(1000*60*60*24)
-      );
 
-    if(diff === 0){
+    const expectedISO =
+      expected
+        .toISOString()
+        .split("T")[0];
 
-      streak++;
-      current.setDate(
-        current.getDate()-1
-      );
 
-    }else if(diff === 1){
+    if(dates[i] === expectedISO){
 
       streak++;
-      current = d;
-      current.setDate(
-        current.getDate()-1
-      );
 
     }else{
 
       break;
+
     }
+
   }
 
+
   return streak;
+
 }
 
 
-/* ---------- RENDER ---------- */
+/* CLOSE MODAL WHEN CLICK OUTSIDE */
+
+document
+  .getElementById("modal")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(e.target === this){
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+/* START */
+
+render();
+
 
 function render(){
 
   updateStats();
+
   renderCalendar();
+
   renderWorkouts();
 
 }
+
 </script>
 
 </body>
