@@ -3,87 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Study Assistant</title>
+
+    <title>CourtPlan 🏀</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <h1>🤖 AI Study Assistant</h1>
-        <p>ผู้ช่วยวางแผนการเรียนของคุณ</p>
+    <!-- HEADER -->
+    <header class="header">
+
+        <div class="logo">
+            🏀 <span>CourtPlan</span>
+        </div>
+
+        <button id="themeBtn" class="theme-btn">
+            🌙
+        </button>
+
     </header>
 
-    <main>
 
-        <section class="card">
-            <h2>📚 Study Planner</h2>
+    <!-- HERO -->
+    <section class="hero">
 
-            <input id="subject" type="text" placeholder="ชื่อวิชา เช่น คณิตศาสตร์">
+        <div>
+            <p class="small-title">BASKETBALL TRAINING</p>
 
-            <input id="examDate" type="date">
+            <h1>
+                Train smart.<br>
+                <span>Play better.</span>
+            </h1>
 
-            <input id="studyTime" type="number" placeholder="เวลาอ่าน (ชั่วโมง)">
+            <p class="description">
+                วางแผนการซ้อมบาสของคุณ
+                ให้เป็นระบบและพัฒนาขึ้นทุกวัน
+            </p>
 
-            <button onclick="createPlan()">สร้างแผนการอ่าน</button>
+            <button
+                class="primary-btn"
+                onclick="scrollToSchedule()">
 
-            <p id="plan"></p>
-        </section>
+                + สร้างตารางซ้อม
+
+            </button>
+        </div>
+
+        <div class="basketball">
+            🏀
+        </div>
+
+    </section>
 
 
-        <section class="card">
-            <h2>✅ To-do List</h2>
+    <!-- STATS -->
+    <section class="stats">
 
-            <div class="todo-input">
-                <input id="taskInput" type="text" placeholder="เพิ่มงานที่ต้องทำ">
-                <button onclick="addTask()">เพิ่ม</button>
+        <div class="stat-card">
+            <span>📅</span>
+            <h2 id="totalSessions">0</h2>
+            <p>เซสชันทั้งหมด</p>
+        </div>
+
+        <div class="stat-card">
+            <span>⏱️</span>
+            <h2 id="totalMinutes">0</h2>
+            <p>นาทีที่ซ้อม</p>
+        </div>
+
+        <div class="stat-card">
+            <span>🔥</span>
+            <h2 id="completedSessions">0</h2>
+            <p>ซ้อมสำเร็จ</p>
+        </div>
+
+    </section>
+
+
+    <!-- TODAY -->
+    <section class="section">
+
+        <div class="section-title">
+
+            <div>
+                <p class="small-title">TODAY</p>
+                <h2>ตารางซ้อมวันนี้</h2>
             </div>
 
-            <ul id="taskList"></ul>
+        </div>
 
-        </section>
-<section class="card">
-    <h2>📝 Quiz</h2>
+        <div id="todaySchedule" class="schedule-list">
 
-    <p id="quizQuestion">
-        5 + 5 มีค่าเท่าไร?
-    </p>
+            <div class="empty">
+                🏀 วันนี้ยังไม่มีตารางซ้อม
+            </div>
 
-    <button onclick="checkAnswer(10)">10</button>
-    <button onclick="checkAnswer(15)">15</button>
-    <button onclick="checkAnswer(20)">20</button>
+        </div>
 
-    <p id="quizResult"></p>
-</section>
+    </section>
 
-<section class="card">
-    <h2>📊 My Progress</h2>
 
-    <p>คะแนน Quiz: <span id="score">0</span></p>
+    <!-- ADD SCHEDULE -->
+    <section id="scheduleSection" class="section">
 
-    <div class="progress-container">
-        <div id="progressBar"></div>
-    </div>
+        <div class="section-title">
 
-    <p id="progressText">0%</p>
-</section>
+            <div>
+                <p class="small-title">PLAN YOUR TRAINING</p>
+                <h2>เพิ่มตารางซ้อม</h2>
+            </div>
 
-        <section class="card">
-            <h2>🤖 Study Assistant</h2>
+        </div>
 
-            <textarea id="question"
-                placeholder="เช่น พรุ่งนี้สอบคณิต ควรอ่านยังไงดี?"></textarea>
 
-            <button onclick="askAssistant()">ถามผู้ช่วย</button>
+        <div class="form-card">
 
-            <p id="answer"></p>
-        </section>
+            <label>วันที่</label>
 
-    </main>
+            <input
+                type="date"
+                id="dateInput">
 
+
+            <label>เวลา</label>
+
+            <input
+                type="time"
+                id="timeInput">
+
+
+            <label>ประเภทการซ้อม</label>
+
+            <select id="typeInput">
+
+                <option value="Ball Handling">
+                    🏀 Ball Handling
+                </option>
+
+                <option value="Shooting">
+                    🎯 Shooting
+                </option>
+
+                <option value="Finishing">
+                    💥 Finishing
+                </option>
+
+                <option value="Conditioning">
+                    🏃 Conditioning
+                </option>
+
+                <option value="Defense">
+                    🛡️ Defense
+                </option>
+
+                <option value="Team Practice">
+                    🤝 Team Practice
+                </option>
+
+                <option value="Recovery">
+                    🧘 Recovery
+                </option>
+
+            </select>
+
+
+            <label>ชื่อการซ้อม</label>
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="เช่น Shooting 3 Point">
+
+
+            <label>ระยะเวลา (นาที)</label>
+
+            <input
+                type="number"
+                id="durationInput"
+                placeholder="60"
+                min="1">
+
+
+            <button
+                class="primary-btn full"
+                onclick="addSchedule()">
+
+                🏀 เพิ่มตารางซ้อม
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ALL SCHEDULE -->
+    <section class="section">
+
+        <div class="section-title">
+
+            <div>
+                <p class="small-title">YOUR PLAN</p>
+                <h2>ตารางทั้งหมด</h2>
+            </div>
+
+        </div>
+
+        <div id="allSchedule" class="schedule-list">
+
+            <div class="empty">
+                ยังไม่มีตารางซ้อม
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
     <footer>
-        <p>AI Study Assistant • Computer Engineering Project</p>
+
+        <p>
+            🏀 CourtPlan
+        </p>
+
+        <span>
+            Basketball Training Planner
+        </span>
+
     </footer>
+
 
     <script src="script.js"></script>
 
