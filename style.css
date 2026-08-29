@@ -519,3 +519,136 @@ footer span {
         font-size: 24px;
     }
 }
+/* ========================
+   V5 CALENDAR
+======================== */
+
+.calendar-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.calendar-header h3 {
+    font-size: 18px;
+}
+
+.calendar-header button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card2);
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.calendar-day {
+    min-height: 100px;
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.calendar-day:hover {
+    border-color: var(--orange);
+    transform: translateY(-2px);
+}
+
+.calendar-day.today {
+    border-color: var(--orange);
+}
+
+.calendar-day.selected {
+    background: var(--orange);
+    color: white;
+}
+
+.day-name {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.selected .day-name {
+    color: white;
+}
+
+.day-number {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 5px 0;
+}
+
+.day-dot {
+    font-size: 12px;
+}
+
+.streak-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 25px;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.streak-icon {
+    font-size: 55px;
+}
+
+.streak-card h2 {
+    font-size: 38px;
+}
+
+.streak-card p:last-child {
+    color: var(--muted);
+}
+
+@media (max-width: 700px) {
+
+    .calendar {
+        gap: 5px;
+    }
+
+    .calendar-day {
+        min-height: 75px;
+        padding: 7px;
+    }
+
+    .day-number {
+        font-size: 18px;
+    }
+
+    .day-name {
+        font-size: 9px;
+    }
+
+    .streak-card {
+        padding: 20px;
+    }
+
+    .streak-icon {
+        font-size: 42px;
+    }
+}
