@@ -464,3 +464,403 @@ function updateAchievements(weeklyCompleted) {
 // อัปเดต Dashboard
 
 updateWeeklyDashboard();
+// ========================
+// V5 CALENDAR
+// ========================
+
+let weekOffset = 0;
+
+let selectedDate = null;
+
+
+function getMonday(date) {
+
+    const d = new Date(date);
+
+    const day = d.getDay();
+
+    const diff = day === 0 ? -6 : 1 - day;
+
+    d.setDate(d.getDate() + diff);
+
+    d.setHours(0, 0, 0, 0);
+
+    return d;
+}
+
+
+function formatDate(date) {
+
+    const year = date.getFullYear();
+
+    const month =
+        String(date.getMonth() + 1).padStart(2, "0");
+
+    const day =
+        String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+function changeWeek(direction) {
+
+    weekOffset += direction;
+
+    renderCalendar();
+
+}
+
+
+function renderCalendar() {
+
+    const calendar =
+        document.getElementById("calendar");
+
+    const title =
+        document.getElementById("weekTitle");
+
+    if (!calendar) return;
+
+
+    const today = new Date();
+
+    const monday =
+        getMonday(today);
+
+    monday.setDate(
+        monday.getDate() + weekOffset * 7
+    );
+
+
+    const sunday =
+        new Date(monday);
+
+    sunday.setDate(
+        monday.getDate() + 6
+    );
+
+
+    title.textContent =
+        `${monday.getDate()} ${monday.toLocaleString("th-TH", {
+            month: "short"
+        })} - ${sunday.getDate()} ${sunday.toLocaleString("th-TH", {
+            month: "short"
+        })}`;
+
+
+    calendar.innerHTML = "";
+
+
+    const days = [
+        "จ.",
+        "อ.",
+        "พ.",
+        "พฤ.",
+        "ศ.",
+        "ส.",
+        "อา."
+    ];
+
+
+    for (let i = 0; i < 7; i++) {
+
+        const date =
+            new Date(monday);
+
+        date.setDate(
+            monday.getDate() + i
+        );
+
+
+        const dateString =
+            formatDate(date);
+
+
+        const daySchedules =
+            schedules.filter(
+                schedule =>
+                    schedule.date === dateString
+            );
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className = "calendar-day";
+
+
+        if (
+            dateString ===
+            formatDate(new Date())
+        ) {
+
+            div.classList.add("today");
+
+        }
+
+
+        if (
+            dateString === selectedDate
+        ) {
+
+            div.classList.add("selected");
+
+        }
+
+
+        div.innerHTML = `
+
+            <div class="day-name">
+                ${days[i]}
+            </div>
+
+            <div class="day-number">
+                ${date.getDate()}
+            </div>
+
+            <div class="day-dot">
+                ${
+                    daySchedules.length
+                    ? "🏀 " + daySchedules.length
+                    : ""
+                }
+            </div>
+
+        `;
+
+
+        div.onclick = () => {
+
+            selectedDate =
+                dateString;
+
+            renderCalendar();
+
+            showSelectedDay(dateString);
+
+        };
+
+
+        calendar.appendChild(div);
+
+    }
+
+}
+
+
+function showSelectedDay(date) {
+
+    const list =
+        document.getElementById("scheduleList");
+
+    if (!list) return;
+
+
+    const filtered =
+        schedules.filter(
+            schedule =>
+                schedule.date === date
+        );
+
+
+    if (filtered.length === 0) {
+
+        list.innerHTML = `
+            <div class="empty">
+                🏀 วันนี้ยังไม่มีตารางซ้อม
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    filtered.forEach(schedule => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "schedule-card";
+
+
+        card.innerHTML = `
+
+            <div class="schedule-info">
+
+                <div class="schedule-type">
+                    ${schedule.type}
+                </div>
+
+                <h3>
+                    ${schedule.time}
+                </h3>
+
+                <p>
+                    ${schedule.note || "ไม่มีรายละเอียด"}
+                </p>
+
+            </div>
+
+            <div class="schedule-actions">
+
+                <button
+                    onclick="toggleComplete(${schedule.id})">
+
+                    ${
+                        schedule.completed
+                        ? "✅ เสร็จแล้ว"
+                        : "☐ ยังไม่ซ้อม"
+                    }
+
+                </button>
+
+                <button
+                    onclick="deleteSchedule(${schedule.id})">
+
+                    🗑️
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        list.appendChild(card);
+
+    });
+
+}
+
+
+function calculateStreak() {
+
+    const completedDates =
+        [...new Set(
+            schedules
+                .filter(s => s.completed)
+                .map(s => s.date)
+        )];
+
+
+    if (completedDates.length === 0) {
+
+        return 0;
+
+    }
+
+
+    completedDates.sort();
+
+
+    let streak = 0;
+
+    const today =
+        new Date();
+
+
+    today.setHours(
+        0, 0, 0, 0
+    );
+
+
+    let current =
+        today;
+
+
+    while (true) {
+
+        const dateString =
+            formatDate(current);
+
+
+        if (
+            completedDates.includes(dateString)
+        ) {
+
+            streak++;
+
+            current =
+                new Date(current);
+
+            current.setDate(
+                current.getDate() - 1
+            );
+
+        } else {
+
+            break;
+
+        }
+
+    }
+
+
+    return streak;
+
+}
+
+
+function updateStreak() {
+
+    const streak =
+        calculateStreak();
+
+
+    const element =
+        document.getElementById("streak");
+
+
+    const message =
+        document.getElementById("streakMessage");
+
+
+    if (element) {
+
+        element.textContent =
+            streak;
+
+    }
+
+
+    if (message) {
+
+        if (streak === 0) {
+
+            message.textContent =
+                "เริ่มสร้าง Streak กันเลย! 💪";
+
+        } else if (streak < 3) {
+
+            message.textContent =
+                "เริ่มต้นได้ดี! ไปต่อกัน 🔥";
+
+        } else if (streak < 7) {
+
+            message.textContent =
+                "ฟอร์มกำลังมา! รักษา Streak ไว้ 🔥";
+
+        } else {
+
+            message.textContent =
+                "สุดยอด! คุณกำลังรักษาความสม่ำเสมอ 🏆";
+
+        }
+
+    }
+
+}
+
+
+// เริ่มต้น Calendar
+
+renderCalendar();
+
+updateStreak();
