@@ -309,3 +309,158 @@ function updateStats() {
 displaySchedules();
 
 updateStats();
+// ========================
+// V4 WEEKLY DASHBOARD
+// ========================
+
+const WEEKLY_GOAL = 5;
+
+
+function getStartOfWeek() {
+
+    const today = new Date();
+
+    const day = today.getDay();
+
+    const diff = day === 0 ? -6 : 1 - day;
+
+    const monday = new Date(today);
+
+    monday.setDate(today.getDate() + diff);
+
+    monday.setHours(0, 0, 0, 0);
+
+    return monday;
+}
+
+
+function updateWeeklyDashboard() {
+
+    const start = getStartOfWeek();
+
+    const end = new Date(start);
+
+    end.setDate(start.getDate() + 7);
+
+
+    const weeklySchedules =
+        schedules.filter(schedule => {
+
+            const scheduleDate =
+                new Date(schedule.date + "T00:00:00");
+
+            return (
+                schedule.completed &&
+                scheduleDate >= start &&
+                scheduleDate < end
+            );
+
+        });
+
+
+    const completed =
+        weeklySchedules.length;
+
+
+    const percent =
+        Math.min(
+            Math.round(
+                (completed / WEEKLY_GOAL) * 100
+            ),
+            100
+        );
+
+
+    const completedElement =
+        document.getElementById("weeklyCompleted");
+
+    const goalElement =
+        document.getElementById("weeklyGoal");
+
+    const percentElement =
+        document.getElementById("weeklyPercent");
+
+    const bar =
+        document.getElementById("progressBar");
+
+    const message =
+        document.getElementById("goalMessage");
+
+
+    if (completedElement)
+        completedElement.textContent = completed;
+
+    if (goalElement)
+        goalElement.textContent = WEEKLY_GOAL;
+
+    if (percentElement)
+        percentElement.textContent = percent + "%";
+
+    if (bar)
+        bar.style.width = percent + "%";
+
+
+    if (message) {
+
+        if (percent >= 100) {
+
+            message.textContent =
+                "🏆 เป้าหมายสัปดาห์นี้สำเร็จแล้ว!";
+
+        } else {
+
+            message.textContent =
+                `อีก ${WEEKLY_GOAL - completed} ครั้ง
+                เพื่อไปถึงเป้าหมาย 💪`;
+
+        }
+
+    }
+
+
+    updateAchievements(completed);
+}
+
+
+function updateAchievements(weeklyCompleted) {
+
+    const first =
+        document.getElementById("achievement1");
+
+    const five =
+        document.getElementById("achievement2");
+
+    const champion =
+        document.getElementById("achievement3");
+
+
+    if (schedules.some(
+        schedule => schedule.completed
+    )) {
+
+        first?.classList.add("unlocked");
+
+    }
+
+
+    if (schedules.filter(
+        schedule => schedule.completed
+    ).length >= 5) {
+
+        five?.classList.add("unlocked");
+
+    }
+
+
+    if (weeklyCompleted >= WEEKLY_GOAL) {
+
+        champion?.classList.add("unlocked");
+
+    }
+
+}
+
+
+// อัปเดต Dashboard
+
+updateWeeklyDashboard();
