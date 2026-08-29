@@ -1,241 +1,269 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>CourtPlan 🏀</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="style.css">
 </head>
 
 <body>
 
-    <!-- HEADER -->
-    <header class="header">
+<header class="header">
 
-        <div class="logo">
-            🏀 <span>CourtPlan</span>
-        </div>
+    <div class="logo">
+        🏀 <span>CourtPlan</span>
+    </div>
 
-        <button id="themeBtn" class="theme-btn">
-            🌙
-        </button>
+</header>
 
-    </header>
 
+<section class="hero">
 
-    <!-- HERO -->
-    <section class="hero">
+    <div>
 
-        <div>
-            <p class="small-title">BASKETBALL TRAINING</p>
-
-            <h1>
-                Train smart.<br>
-                <span>Play better.</span>
-            </h1>
-
-            <p class="description">
-                วางแผนการซ้อมบาสของคุณ
-                ให้เป็นระบบและพัฒนาขึ้นทุกวัน
-            </p>
-
-            <button
-                class="primary-btn"
-                onclick="scrollToSchedule()">
-
-                + สร้างตารางซ้อม
-
-            </button>
-        </div>
-
-        <div class="basketball">
-            🏀
-        </div>
-
-    </section>
-
-
-    <!-- STATS -->
-    <section class="stats">
-
-        <div class="stat-card">
-            <span>📅</span>
-            <h2 id="totalSessions">0</h2>
-            <p>เซสชันทั้งหมด</p>
-        </div>
-
-        <div class="stat-card">
-            <span>⏱️</span>
-            <h2 id="totalMinutes">0</h2>
-            <p>นาทีที่ซ้อม</p>
-        </div>
-
-        <div class="stat-card">
-            <span>🔥</span>
-            <h2 id="completedSessions">0</h2>
-            <p>ซ้อมสำเร็จ</p>
-        </div>
-
-    </section>
-
-
-    <!-- TODAY -->
-    <section class="section">
-
-        <div class="section-title">
-
-            <div>
-                <p class="small-title">TODAY</p>
-                <h2>ตารางซ้อมวันนี้</h2>
-            </div>
-
-        </div>
-
-        <div id="todaySchedule" class="schedule-list">
-
-            <div class="empty">
-                🏀 วันนี้ยังไม่มีตารางซ้อม
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- ADD SCHEDULE -->
-    <section id="scheduleSection" class="section">
-
-        <div class="section-title">
-
-            <div>
-                <p class="small-title">PLAN YOUR TRAINING</p>
-                <h2>เพิ่มตารางซ้อม</h2>
-            </div>
-
-        </div>
-
-
-        <div class="form-card">
-
-            <label>วันที่</label>
-
-            <input
-                type="date"
-                id="dateInput">
-
-
-            <label>เวลา</label>
-
-            <input
-                type="time"
-                id="timeInput">
-
-
-            <label>ประเภทการซ้อม</label>
-
-            <select id="typeInput">
-
-                <option value="Ball Handling">
-                    🏀 Ball Handling
-                </option>
-
-                <option value="Shooting">
-                    🎯 Shooting
-                </option>
-
-                <option value="Finishing">
-                    💥 Finishing
-                </option>
-
-                <option value="Conditioning">
-                    🏃 Conditioning
-                </option>
-
-                <option value="Defense">
-                    🛡️ Defense
-                </option>
-
-                <option value="Team Practice">
-                    🤝 Team Practice
-                </option>
-
-                <option value="Recovery">
-                    🧘 Recovery
-                </option>
-
-            </select>
-
-
-            <label>ชื่อการซ้อม</label>
-
-            <input
-                type="text"
-                id="nameInput"
-                placeholder="เช่น Shooting 3 Point">
-
-
-            <label>ระยะเวลา (นาที)</label>
-
-            <input
-                type="number"
-                id="durationInput"
-                placeholder="60"
-                min="1">
-
-
-            <button
-                class="primary-btn full"
-                onclick="addSchedule()">
-
-                🏀 เพิ่มตารางซ้อม
-
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- ALL SCHEDULE -->
-    <section class="section">
-
-        <div class="section-title">
-
-            <div>
-                <p class="small-title">YOUR PLAN</p>
-                <h2>ตารางทั้งหมด</h2>
-            </div>
-
-        </div>
-
-        <div id="allSchedule" class="schedule-list">
-
-            <div class="empty">
-                ยังไม่มีตารางซ้อม
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-    <footer>
-
-        <p>
-            🏀 CourtPlan
+        <p class="small-title">
+            BASKETBALL TRAINING
         </p>
 
-        <span>
-            Basketball Training Planner
-        </span>
+        <h1>
+            Train smart.<br>
+            <span>Play better.</span>
+        </h1>
 
-    </footer>
+        <p class="description">
+            วางแผนการซ้อมบาสของคุณ
+            และพัฒนาตัวเองให้ดีขึ้นทุกวัน
+        </p>
+
+        <button
+            class="primary-btn"
+            onclick="scrollToSchedule()">
+
+            + สร้างตารางซ้อม
+
+        </button>
+
+    </div>
+
+    <div class="basketball">
+        🏀
+    </div>
+
+</section>
 
 
-    <script src="script.js"></script>
+<!-- STATS -->
+
+<section class="stats">
+
+    <div class="stat-card">
+
+        <span>📅</span>
+
+        <h2 id="total">
+            0
+        </h2>
+
+        <p>
+            เซสชันทั้งหมด
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span>🔥</span>
+
+        <h2 id="completed">
+            0
+        </h2>
+
+        <p>
+            ซ้อมสำเร็จ
+        </p>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <span>⏳</span>
+
+        <h2 id="remaining">
+            0
+        </h2>
+
+        <p>
+            รอซ้อม
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ADD SCHEDULE -->
+
+<section
+    class="section"
+    id="scheduleSection">
+
+    <div class="section-title">
+
+        <div>
+
+            <p class="small-title">
+                PLAN YOUR TRAINING
+            </p>
+
+            <h2>
+                เพิ่มตารางซ้อม
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <label>
+            📅 วันที่ซ้อม
+        </label>
+
+        <input
+            type="date"
+            id="date">
+
+
+        <label>
+            ⏰ เวลา
+        </label>
+
+        <input
+            type="time"
+            id="time">
+
+
+        <label>
+            🏀 ประเภทการซ้อม
+        </label>
+
+        <select id="type">
+
+            <option>
+                Shooting
+            </option>
+
+            <option>
+                Ball Handling
+            </option>
+
+            <option>
+                Finishing
+            </option>
+
+            <option>
+                Defense
+            </option>
+
+            <option>
+                Conditioning
+            </option>
+
+            <option>
+                Team Practice
+            </option>
+
+            <option>
+                Recovery
+            </option>
+
+        </select>
+
+
+        <label>
+            📝 รายละเอียด
+        </label>
+
+        <input
+            type="text"
+            id="note"
+            placeholder="เช่น ยิง 3 แต้ม 100 ลูก">
+
+
+        <button
+            class="primary-btn full"
+            onclick="addSchedule()">
+
+            🏀 เพิ่มตารางซ้อม
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- SCHEDULE -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <p class="small-title">
+                YOUR TRAINING PLAN
+            </p>
+
+            <h2>
+                ตารางซ้อมของฉัน
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="scheduleList"
+        class="schedule-list">
+
+        <div class="empty">
+
+            🏀 ยังไม่มีตารางซ้อม
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <p>
+        🏀 CourtPlan
+    </p>
+
+    <span>
+        Basketball Training Planner
+    </span>
+
+</footer>
+
+
+<script src="script.js"></script>
 
 </body>
+
 </html>
