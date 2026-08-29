@@ -1,1 +1,1 @@
-# ai-study-assistant
+# CourtPlan
