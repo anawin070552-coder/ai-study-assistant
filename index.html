@@ -1,477 +1,695 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CourtPlan 🏀</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-    <title>CourtPlan 🏀</title>
+    body {
+      font-family: Arial, sans-serif;
+      background: #09090b;
+      color: #f5f5f5;
+      min-height: 100vh;
+    }
 
-    <link rel="stylesheet"
-          href="style.css">
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+      padding: 40px 0 70px;
+    }
+
+    .hero {
+      padding: 45px 0;
+    }
+
+    .tag {
+      color: #ff7a00;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 90px);
+      line-height: .95;
+      letter-spacing: -4px;
+    }
+
+    h1 span {
+      color: #ff7a00;
+    }
+
+    .subtitle {
+      color: #999;
+      font-size: 18px;
+      margin-top: 25px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-btn {
+      margin-top: 30px;
+      background: #ff7a00;
+      color: #111;
+      padding: 16px 24px;
+      border-radius: 14px;
+      font-size: 16px;
+    }
+
+    .add-btn:active {
+      transform: scale(.97);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: #141417;
+      border: 1px solid #27272a;
+      border-radius: 22px;
+      padding: 25px;
+    }
+
+    .section-title {
+      color: #ff7a00;
+      font-size: 13px;
+      letter-spacing: 2px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .day {
+      min-height: 105px;
+      background: #1b1b20;
+      border: 1px solid #29292e;
+      border-radius: 14px;
+      padding: 10px;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .day:hover {
+      border-color: #ff7a00;
+    }
+
+    .day.today {
+      border: 2px solid #ff7a00;
+    }
+
+    .day-name {
+      color: #888;
+      font-size: 12px;
+    }
+
+    .date {
+      font-size: 21px;
+      font-weight: bold;
+      margin: 8px 0;
+    }
+
+    .training-dot {
+      display: block;
+      color: #ff7a00;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .streak {
+      font-size: 60px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .streak span {
+      font-size: 32px;
+    }
+
+    .muted {
+      color: #888;
+    }
+
+    .training-list {
+      margin-top: 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .training-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1b1b20;
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid #29292e;
+    }
+
+    .training-item strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .training-item small {
+      color: #888;
+    }
+
+    .delete-btn {
+      background: transparent;
+      color: #777;
+      font-size: 18px;
+      padding: 8px;
+    }
+
+    .delete-btn:hover {
+      color: #ff5b5b;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(500px, 100%);
+      background: #151518;
+      border: 1px solid #333;
+      border-radius: 22px;
+      padding: 25px;
+    }
+
+    .modal-box h2 {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      color: #aaa;
+      font-size: 14px;
+      margin: 15px 0 7px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #333;
+      background: #0e0e10;
+      color: white;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #ff7a00;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .save-btn {
+      flex: 1;
+      background: #ff7a00;
+      padding: 14px;
+      border-radius: 12px;
+    }
+
+    .cancel-btn {
+      flex: 1;
+      background: #29292e;
+      color: white;
+      padding: 14px;
+      border-radius: 12px;
+    }
+
+    footer {
+      text-align: center;
+      color: #555;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 700px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .calendar {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .day {
+        min-height: 95px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header class="header">
+  <main class="container">
 
-    <div class="logo">
-        🏀 <span>CourtPlan</span>
+    <section class="hero">
+      <div class="tag">BASKETBALL TRAINING</div>
+
+      <h1>
+        Train smart.<br>
+        <span>Play better.</span>
+      </h1>
+
+      <p class="subtitle">
+        วางแผนการซ้อมบาสของคุณ และพัฒนาตัวเองให้ดีขึ้นทุกวัน 🏀
+      </p>
+
+      <button class="add-btn" onclick="openModal()">
+        ＋ สร้างตารางซ้อม
+      </button>
+    </section>
+
+    <div class="grid">
+
+      <section class="card">
+        <div class="section-title">WEEKLY CALENDAR</div>
+        <h2>สัปดาห์นี้</h2>
+
+        <div id="calendar" class="calendar"></div>
+      </section>
+
+      <section class="card">
+        <div class="section-title">TRAINING STREAK</div>
+
+        <div class="streak">
+          🔥 <span id="streak">0</span> วัน
+        </div>
+
+        <p class="muted">
+          ซ้อมต่อเนื่องให้ครบทุกวัน แล้วรักษา Streak ไว้! 🔥
+        </p>
+
+        <div id="trainingList" class="training-list"></div>
+      </section>
+
     </div>
 
-</header>
+    <footer>
+      CourtPlan 🏀 — Train smart. Play better.
+    </footer>
 
+  </main>
 
-<section class="hero">
+  <!-- MODAL -->
+  <div id="modal" class="modal">
 
-    <div>
+    <div class="modal-box">
 
-        <p class="small-title">
-            BASKETBALL TRAINING
-        </p>
+      <h2>🏀 เพิ่มตารางซ้อม</h2>
 
-        <h1>
-            Train smart.<br>
-            <span>Play better.</span>
-        </h1>
+      <label>วันที่</label>
+      <input id="trainingDate" type="date">
 
-        <p class="description">
-            วางแผนการซ้อมบาสของคุณ
-            และพัฒนาตัวเองให้ดีขึ้นทุกวัน
-        </p>
+      <label>ประเภทการซ้อม</label>
+      <select id="trainingType">
+        <option>🏀 Ball Handling</option>
+        <option>🎯 Shooting</option>
+        <option>⚡ Speed & Agility</option>
+        <option>💪 Strength</option>
+        <option>🛡️ Defense</option>
+        <option>🏆 Game Training</option>
+        <option>🧘 Recovery</option>
+      </select>
 
-        <button
-            class="primary-btn"
-            onclick="scrollToSchedule()">
+      <label>เวลา</label>
+      <input id="trainingTime" type="time">
 
-            + สร้างตารางซ้อม
+      <label>ระยะเวลา (นาที)</label>
+      <input id="trainingDuration" type="number" value="60" min="1">
 
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal()">
+          ยกเลิก
         </button>
 
+        <button class="save-btn" onclick="saveTraining()">
+          บันทึกตาราง
+        </button>
+      </div>
+
     </div>
 
-    <div class="basketball">
-        🏀
-    </div>
+  </div>
 
-</section>
+<script>
 
+  let trainings = JSON.parse(
+    localStorage.getItem("courtplan_trainings") || "[]"
+  );
 
-<!-- STATS -->
+  function saveData() {
+    localStorage.setItem(
+      "courtplan_trainings",
+      JSON.stringify(trainings)
+    );
+  }
 
-<section class="stats">
+  function openModal() {
 
-    <div class="stat-card">
-        <span>📅</span>
-        <h2 id="total">0</h2>
-        <p>เซสชันทั้งหมด</p>
-    </div>
+    document.getElementById("modal").classList.add("show");
 
-    <div class="stat-card">
-        <span>🔥</span>
-        <h2 id="completed">0</h2>
-        <p>ซ้อมสำเร็จ</p>
-    </div>
+    const today = new Date()
+      .toISOString()
+      .split("T")[0];
 
-    <div class="stat-card">
-        <span>🎯</span>
-        <h2 id="remaining">0</h2>
-        <p>รอซ้อม</p>
-    </div>
+    document.getElementById("trainingDate").value = today;
+    document.getElementById("trainingTime").value = "17:00";
+  }
 
-</section>
+  function closeModal() {
+    document.getElementById("modal").classList.remove("show");
+  }
 
+  function saveTraining() {
 
-<section class="section">
+    const date =
+      document.getElementById("trainingDate").value;
 
-    <div class="section-title">
+    const type =
+      document.getElementById("trainingType").value;
+
+    const time =
+      document.getElementById("trainingTime").value;
+
+    const duration =
+      document.getElementById("trainingDuration").value;
+
+    if (!date) {
+      alert("กรุณาเลือกวันที่");
+      return;
+    }
+
+    trainings.push({
+      id: Date.now(),
+      date,
+      type,
+      time,
+      duration
+    });
+
+    saveData();
+
+    closeModal();
+
+    renderCalendar();
+    renderTrainingList();
+    updateStreak();
+  }
+
+  function deleteTraining(id) {
+
+    trainings = trainings.filter(
+      item => item.id !== id
+    );
+
+    saveData();
+
+    renderCalendar();
+    renderTrainingList();
+    updateStreak();
+  }
+
+  function getWeekDates() {
+
+    const today = new Date();
+
+    const day = today.getDay();
+
+    const mondayOffset =
+      day === 0 ? -6 : 1 - day;
+
+    const monday = new Date(today);
+
+    monday.setDate(
+      today.getDate() + mondayOffset
+    );
+
+    const dates = [];
+
+    for (let i = 0; i < 7; i++) {
+
+      const d = new Date(monday);
+
+      d.setDate(monday.getDate() + i);
+
+      dates.push(d);
+    }
+
+    return dates;
+  }
+
+  function dateKey(date) {
+
+    return date
+      .toISOString()
+      .split("T")[0];
+  }
+
+  function renderCalendar() {
+
+    const calendar =
+      document.getElementById("calendar");
+
+    calendar.innerHTML = "";
+
+    const weekDays = [
+      "จ.",
+      "อ.",
+      "พ.",
+      "พฤ.",
+      "ศ.",
+      "ส.",
+      "อา."
+    ];
+
+    getWeekDates().forEach((date, index) => {
+
+      const key = dateKey(date);
+
+      const dayTrainings =
+        trainings.filter(t => t.date === key);
+
+      const todayKey =
+        dateKey(new Date());
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "day" +
+        (key === todayKey ? " today" : "");
+
+      let trainingHTML = "";
+
+      dayTrainings.forEach(t => {
+
+        trainingHTML += `
+          <span class="training-dot">
+            🏀 ${t.type.split(" ").slice(1).join(" ")}
+          </span>
+        `;
+
+      });
+
+      div.innerHTML = `
+        <div class="day-name">
+          ${weekDays[index]}
+        </div>
+
+        <div class="date">
+          ${date.getDate()}
+        </div>
+
+        ${trainingHTML}
+      `;
+
+      div.onclick = () => {
+
+        document.getElementById(
+          "trainingDate"
+        ).value = key;
+
+        openModal();
+
+      };
+
+      calendar.appendChild(div);
+
+    });
+  }
+
+  function renderTrainingList() {
+
+    const list =
+      document.getElementById("trainingList");
+
+    list.innerHTML = "";
+
+    const sorted =
+      [...trainings]
+      .sort((a,b) =>
+        a.date.localeCompare(b.date)
+      );
+
+    if (sorted.length === 0) {
+
+      list.innerHTML = `
+        <div class="muted">
+          ยังไม่มีตารางซ้อม<br>
+          กด “＋ สร้างตารางซ้อม” เพื่อเริ่มต้น 🏀
+        </div>
+      `;
+
+      return;
+    }
+
+    sorted.slice(-5).reverse().forEach(t => {
+
+      const div =
+        document.createElement("div");
+
+      div.className = "training-item";
+
+      div.innerHTML = `
         <div>
-            <p class="small-title">WEEKLY GOAL</p>
-            <h2>เป้าหมายสัปดาห์นี้</h2>
+          <strong>${t.type}</strong>
+          <small>
+            ${formatDate(t.date)}
+            · ${t.time || "--:--"}
+            · ${t.duration} นาที
+          </small>
         </div>
-    </div>
-
-    <div class="goal-card">
-
-        <div class="goal-top">
-            <div>
-                <span>🏀 Training Sessions</span>
-                <h2>
-                    <span id="weeklyCompleted">0</span>
-                    /
-                    <span id="weeklyGoal">5</span>
-                </h2>
-            </div>
-
-            <div class="goal-percent"
-                 id="weeklyPercent">
-                0%
-            </div>
-        </div>
-
-        <div class="progress">
-            <div
-                id="progressBar"
-                class="progress-bar">
-            </div>
-        </div>
-
-        <p id="goalMessage">
-            เริ่มต้นสัปดาห์นี้กันเลย! 💪
-        </p>
-
-    </div>
-
-</section>
-
-
-<section class="section">
-
-    <div class="section-title">
-        <div>
-            <p class="small-title">ACHIEVEMENTS</p>
-            <h2>ความสำเร็จ</h2>
-        </div>
-    </div>
-
-    <div class="achievements">
-
-        <div
-            class="achievement"
-            id="achievement1">
-
-            <div class="achievement-icon">
-                🏀
-            </div>
-
-            <div>
-                <h3>First Training</h3>
-                <p>ซ้อมครั้งแรก</p>
-            </div>
-
-        </div>
-
-
-        <div
-            class="achievement"
-            id="achievement2">
-
-            <div class="achievement-icon">
-                🔥
-            </div>
-
-            <div>
-                <h3>5 Sessions</h3>
-                <p>ซ้อมครบ 5 ครั้ง</p>
-            </div>
-
-        </div>
-
-
-        <div
-            class="achievement"
-            id="achievement3">
-
-            <div class="achievement-icon">
-                🏆
-            </div>
-
-            <div>
-                <h3>Weekly Champion</h3>
-                <p>ทำเป้าหมายรายสัปดาห์สำเร็จ</p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
- <!-- WEEKLY CALENDAR -->
-
-<section class="section">
-
-    <div class="section-title">
-
-        <div>
-            <p class="small-title">WEEKLY CALENDAR</p>
-            <h2>สัปดาห์นี้</h2>
-        </div>
-
-    </div>
-
-    <div class="calendar-card">
-
-        <div class="calendar-header">
-
-            <button onclick="changeWeek(-1)">
-                ←
-            </button>
-
-            <h3 id="weekTitle">
-                สัปดาห์นี้
-            </h3>
-
-            <button onclick="changeWeek(1)">
-                →
-            </button>
-
-        </div>
-
-        <div
-            id="calendar"
-            class="calendar">
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- STREAK -->
-
-<section class="section">
-
-    <div class="streak-card">
-
-        <div class="streak-icon">
-            🔥
-        </div>
-
-        <div>
-
-            <p class="small-title">
-                TRAINING STREAK
-            </p>
-
-            <h2>
-                <span id="streak">0</span>
-                วัน
-            </h2>
-
-            <p id="streakMessage">
-                เริ่มสร้าง Streak กันเลย!
-            </p>
-
-        </div>
-
-    </div>
-
-</section>   
-
-<!-- ADD SCHEDULE -->
-
-<section
-    class="section"
-    id="scheduleSection">
-
-    <div class="section-title">
-
-        <div>
-
-            <p class="small-title">
-                PLAN YOUR TRAINING
-            </p>
-
-            <h2>
-                เพิ่มตารางซ้อม
-            </h2>
-
-        </div>
-
-    </div>
-
-
-    <div class="form-card">
-
-        <label>
-            📅 วันที่ซ้อม
-        </label>
-
-        <input
-            type="date"
-            id="date">
-
-
-        <label>
-            ⏰ เวลา
-        </label>
-
-        <input
-            type="time"
-            id="time">
-
-
-        <label>
-            🏀 ประเภทการซ้อม
-        </label>
-
-        <select id="type">
-
-            <option>
-                Shooting
-            </option>
-
-            <option>
-                Ball Handling
-            </option>
-
-            <option>
-                Finishing
-            </option>
-
-            <option>
-                Defense
-            </option>
-
-            <option>
-                Conditioning
-            </option>
-
-            <option>
-                Team Practice
-            </option>
-
-            <option>
-                Recovery
-            </option>
-
-        </select>
-
-
-        <label>
-            📝 รายละเอียด
-        </label>
-
-        <input
-            type="text"
-            id="note"
-            placeholder="เช่น ยิง 3 แต้ม 100 ลูก">
-
 
         <button
-            class="primary-btn full"
-            onclick="addSchedule()">
-
-            🏀 เพิ่มตารางซ้อม
-
+          class="delete-btn"
+          onclick="deleteTraining(${t.id})"
+        >
+          🗑️
         </button>
+      `;
 
-    </div>
+      list.appendChild(div);
 
-</section>
+    });
+  }
 
+  function formatDate(date) {
 
-<!-- SCHEDULE -->
+    const d =
+      new Date(date + "T00:00:00");
 
-<section class="section">
+    return d.toLocaleDateString(
+      "th-TH",
+      {
+        day: "numeric",
+        month: "short"
+      }
+    );
+  }
 
-    <div class="section-title">
+  function updateStreak() {
 
-        <div>
+    const uniqueDates =
+      [...new Set(trainings.map(t => t.date))]
+      .sort()
+      .reverse();
 
-            <p class="small-title">
-                YOUR TRAINING PLAN
-            </p>
+    let streak = 0;
 
-            <h2>
-                ตารางซ้อมของฉัน
-            </h2>
+    let check = new Date();
 
-        </div>
+    check.setHours(0,0,0,0);
 
-    </div>
+    while (true) {
 
+      const key = dateKey(check);
 
-    <div
-        id="scheduleList"
-        class="schedule-list">
+      if (uniqueDates.includes(key)) {
 
-        <div class="empty">
+        streak++;
 
-            🏀 ยังไม่มีตารางซ้อม
+        check.setDate(
+          check.getDate() - 1
+        );
 
-        </div>
+      } else {
 
-    </div>
+        break;
 
-</section>
+      }
+    }
 
+    document.getElementById(
+      "streak"
+    ).textContent = streak;
+  }
 
-<footer>
+  /* ปิด Modal เมื่อแตะพื้นหลัง */
+  document.getElementById("modal")
+    .addEventListener("click", function(e) {
 
-    <p>
-        🏀 CourtPlan
-    </p>
+      if (e.target === this) {
+        closeModal();
+      }
 
-    <span>
-        Basketball Training Planner
-    </span>
+    });
 
-</footer>
+  /* เริ่มระบบ */
+  renderCalendar();
+  renderTrainingList();
+  updateStreak();
 
-
-<script src="script.js"></script>
+</script>
 
 </body>
-
 </html>
-<!-- V6 TRAINING DASHBOARD -->
-
-<section class="section">
-
-    <div class="section-title">
-        <div>
-            <p class="small-title">TRAINING DASHBOARD</p>
-            <h2>สถิติการซ้อม 📊</h2>
-        </div>
-    </div>
-
-    <div class="stats-grid">
-
-        <div class="stat-card">
-            <span>🏀</span>
-            <p>ซ้อมทั้งหมด</p>
-            <h3 id="totalTraining">0</h3>
-            <small>ครั้ง</small>
-        </div>
-
-        <div class="stat-card">
-            <span>⏱️</span>
-            <p>เวลาซ้อม</p>
-            <h3 id="totalHours">0</h3>
-            <small>ชั่วโมง</small>
-        </div>
-
-        <div class="stat-card">
-            <span>🔥</span>
-            <p>Streak</p>
-            <h3 id="dashboardStreak">0</h3>
-            <small>วัน</small>
-        </div>
-
-        <div class="stat-card">
-            <span>✅</span>
-            <p>ทำสำเร็จ</p>
-            <h3 id="completedTraining">0</h3>
-            <small>ครั้ง</small>
-        </div>
-
-    </div>
-
-    <div class="chart-card">
-
-        <div class="chart-title">
-            <div>
-                <p class="small-title">ACTIVITY</p>
-                <h3>การซ้อม 7 วันล่าสุด</h3>
-            </div>
-        </div>
-
-        <div id="trainingChart" class="training-chart"></div>
-
-    </div>
-
-</section>
