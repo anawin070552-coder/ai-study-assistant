@@ -142,7 +142,78 @@ h1{
   transition:.5s;
 }
 
-/* CALENDAR */
+
+/* =========================
+   TRAINING CHART
+========================= */
+
+.chart-card{
+  margin-top:20px;
+}
+
+.chart-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:20px;
+}
+
+.chart-sub{
+  color:#888;
+  font-size:14px;
+  margin-top:6px;
+}
+
+.chart{
+  height:250px;
+  display:flex;
+  align-items:flex-end;
+  gap:10px;
+  border-bottom:1px solid #303036;
+  padding:10px 5px 0;
+}
+
+.chart-column{
+  flex:1;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  gap:8px;
+}
+
+.chart-value{
+  font-size:11px;
+  color:#aaa;
+  min-height:15px;
+}
+
+.chart-bar-wrap{
+  height:185px;
+  width:100%;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.chart-bar{
+  width:min(44px,70%);
+  height:0;
+  background:#ff8500;
+  border-radius:9px 9px 0 0;
+  transition:.5s;
+}
+
+.chart-label{
+  font-size:12px;
+  color:#888;
+}
+
+
+/* =========================
+   CALENDAR
+========================= */
 
 .calendar{
   display:grid;
@@ -185,7 +256,10 @@ h1{
   font-size:12px;
 }
 
-/* WORKOUT */
+
+/* =========================
+   WORKOUT
+========================= */
 
 .workouts{
   display:grid;
@@ -228,7 +302,10 @@ h1{
   padding:35px;
 }
 
-/* MODAL */
+
+/* =========================
+   MODAL
+========================= */
 
 .modal{
   display:none;
@@ -297,13 +374,21 @@ input,select{
   border-radius:12px;
 }
 
+
+/* =========================
+   FOOTER
+========================= */
+
 footer{
   text-align:center;
   color:#555;
   padding:55px 0 20px;
 }
 
-/* IPAD / MOBILE */
+
+/* =========================
+   IPAD / MOBILE
+========================= */
 
 @media(max-width:700px){
 
@@ -332,172 +417,258 @@ footer{
   .main-btn{
     width:100%;
   }
+
+  .chart{
+    gap:6px;
+  }
+
+  .chart-bar{
+    width:70%;
+  }
 }
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
-  <!-- HERO -->
 
-  <section class="hero">
+<!-- =========================
+     HERO
+========================= -->
 
-    <div class="label">
-      BASKETBALL TRAINING
-    </div>
+<section class="hero">
 
-    <h1>
-      Train smart.<br>
-      <span class="orange">Play better.</span>
-    </h1>
+  <div class="label">
+    BASKETBALL TRAINING
+  </div>
 
-    <p class="subtitle">
-      วางแผนการซ้อมบาสของคุณ<br>
-      และพัฒนาตัวเองให้ดีขึ้นทุกวัน 🏀
-    </p>
+  <h1>
+    Train smart.<br>
+    <span class="orange">Play better.</span>
+  </h1>
 
-    <button class="main-btn" onclick="openModal()">
-      ＋ สร้างตารางซ้อม
-    </button>
+  <p class="subtitle">
+    วางแผนการซ้อมบาสของคุณ<br>
+    และพัฒนาตัวเองให้ดีขึ้นทุกวัน 🏀
+  </p>
 
-  </section>
+  <button
+    class="main-btn"
+    onclick="openModal()">
+
+    ＋ สร้างตารางซ้อม
+
+  </button>
+
+</section>
 
 
-  <!-- STATS -->
+<!-- =========================
+     STATS
+========================= -->
 
-  <section class="section">
+<section class="section">
 
-    <div class="section-title">
-      TRAINING STATS
-    </div>
+  <div class="section-title">
+    TRAINING STATS
+  </div>
 
-    <div class="stats">
+  <div class="stats">
 
-      <div class="card">
-        <div class="stat-label">
-          ซ้อมทั้งหมด
-        </div>
 
-        <div class="stat-number" id="totalWorkouts">
-          0
-        </div>
+    <div class="card">
 
-        <div class="stat-label">
-          ครั้ง
-        </div>
+      <div class="stat-label">
+        ซ้อมทั้งหมด
       </div>
 
+      <div
+        class="stat-number"
+        id="totalWorkouts">
 
-      <div class="card">
-        <div class="stat-label">
-          เวลาซ้อมรวม
-        </div>
+        0
 
-        <div class="stat-number" id="totalMinutes">
-          0
-        </div>
-
-        <div class="stat-label">
-          นาที
-        </div>
       </div>
 
-
-      <div class="card">
-        <div class="stat-label">
-          🔥 Training Streak
-        </div>
-
-        <div class="stat-number" id="streak">
-          0
-        </div>
-
-        <div class="stat-label">
-          วัน
-        </div>
+      <div class="stat-label">
+        ครั้ง
       </div>
 
     </div>
 
 
-    <div class="card goal">
+    <div class="card">
 
-      <div class="goal-top">
+      <div class="stat-label">
+        เวลาซ้อมรวม
+      </div>
+
+      <div
+        class="stat-number"
+        id="totalMinutes">
+
+        0
+
+      </div>
+
+      <div class="stat-label">
+        นาที
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="stat-label">
+        🔥 Training Streak
+      </div>
+
+      <div
+        class="stat-number"
+        id="streak">
+
+        0
+
+      </div>
+
+      <div class="stat-label">
+        วัน
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="card goal">
+
+    <div class="goal-top">
+
+      <b>
+        🎯 เป้าหมายสัปดาห์นี้
+      </b>
+
+      <span id="goalText">
+        0 / 5 ครั้ง
+      </span>
+
+    </div>
+
+    <div class="progress">
+
+      <div
+        class="progress-bar"
+        id="progress">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     CHART
+========================= -->
+
+<section class="section">
+
+  <div class="section-title">
+    TRAINING CHART
+  </div>
+
+  <h2>
+    เวลาซ้อมในสัปดาห์นี้
+  </h2>
+
+  <div class="card chart-card">
+
+    <div class="chart-head">
+
+      <div>
 
         <b>
-          🎯 เป้าหมายสัปดาห์นี้
+          ⏱️ Training Minutes
         </b>
 
-        <span id="goalText">
-          0 / 5 ครั้ง
-        </span>
-
-      </div>
-
-      <div class="progress">
-
-        <div
-          class="progress-bar"
-          id="progress">
+        <div class="chart-sub">
+          เวลาซ้อมในแต่ละวัน
         </div>
 
       </div>
 
     </div>
 
-  </section>
-
-
-  <!-- CALENDAR -->
-
-  <section class="section">
-
-    <div class="section-title">
-      WEEKLY CALENDAR
-    </div>
-
-    <h2>
-      สัปดาห์นี้
-    </h2>
-
     <div
-      class="calendar"
-      id="calendar">
+      class="chart"
+      id="chart">
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 
-  <!-- WORKOUT PLAN -->
+<!-- =========================
+     CALENDAR
+========================= -->
 
-  <section class="section">
+<section class="section">
 
-    <div class="section-title">
-      WORKOUT PLAN
-    </div>
+  <div class="section-title">
+    WEEKLY CALENDAR
+  </div>
 
-    <h2>
-      ตารางซ้อมของฉัน
-    </h2>
+  <h2>
+    สัปดาห์นี้
+  </h2>
 
-    <div
-      class="workouts"
-      id="workouts">
-    </div>
+  <div
+    class="calendar"
+    id="calendar">
+  </div>
 
-  </section>
+</section>
 
 
-  <footer>
-    CourtPlan 🏀 — Train smart. Play better.
-  </footer>
+<!-- =========================
+     WORKOUT PLAN
+========================= -->
+
+<section class="section">
+
+  <div class="section-title">
+    WORKOUT PLAN
+  </div>
+
+  <h2>
+    ตารางซ้อมของฉัน
+  </h2>
+
+  <div
+    class="workouts"
+    id="workouts">
+  </div>
+
+</section>
+
+
+<footer>
+  CourtPlan 🏀 — Train smart. Play better.
+</footer>
 
 </div>
 
 
-<!-- MODAL -->
+<!-- =========================
+     MODAL
+========================= -->
 
 <div
   class="modal"
@@ -578,13 +749,17 @@ footer{
       <button
         class="cancel"
         onclick="closeModal()">
+
         ยกเลิก
+
       </button>
 
       <button
         class="save"
         onclick="addWorkout()">
+
         บันทึก
+
       </button>
 
     </div>
@@ -596,13 +771,21 @@ footer{
 
 <script>
 
+/* =========================
+   DATA
+========================= */
+
 let workouts =
   JSON.parse(
-    localStorage.getItem("courtplan_workouts")
+    localStorage.getItem(
+      "courtplan_workouts"
+    )
   ) || [];
 
 
-/* SAVE */
+/* =========================
+   SAVE
+========================= */
 
 function save(){
 
@@ -614,7 +797,9 @@ function save(){
 }
 
 
-/* MODAL */
+/* =========================
+   MODAL
+========================= */
 
 function openModal(selectedDate){
 
@@ -626,7 +811,9 @@ function openModal(selectedDate){
     .getElementById("date")
     .value =
       selectedDate ||
-      new Date().toISOString().split("T")[0];
+      new Date()
+        .toISOString()
+        .split("T")[0];
 
 }
 
@@ -640,28 +827,44 @@ function closeModal(){
 }
 
 
-/* ADD */
+/* =========================
+   ADD WORKOUT
+========================= */
 
 function addWorkout(){
 
   const date =
-    document.getElementById("date").value;
+    document
+      .getElementById("date")
+      .value;
 
   const type =
-    document.getElementById("type").value;
+    document
+      .getElementById("type")
+      .value;
 
   const time =
-    document.getElementById("time").value;
+    document
+      .getElementById("time")
+      .value;
 
   const duration =
     Number(
-      document.getElementById("duration").value
+      document
+        .getElementById("duration")
+        .value
     );
 
 
-  if(!date || !duration || duration < 5){
+  if(
+    !date ||
+    !duration ||
+    duration < 5
+  ){
 
-    alert("กรุณากรอกข้อมูลให้ครบ");
+    alert(
+      "กรุณากรอกข้อมูลให้ครบ"
+    );
 
     return;
 
@@ -692,7 +895,9 @@ function addWorkout(){
 }
 
 
-/* DELETE */
+/* =========================
+   DELETE
+========================= */
 
 function deleteWorkout(id){
 
@@ -708,9 +913,11 @@ function deleteWorkout(id){
 }
 
 
-/* WEEK */
+/* =========================
+   WEEK
+========================= */
 
-function getThisWeekWorkouts(){
+function getWeekDates(){
 
   const now =
     new Date();
@@ -724,40 +931,83 @@ function getThisWeekWorkouts(){
 
   monday.setDate(
     now.getDate() -
-    (day === 0 ? 6 : day - 1)
+    (day === 0
+      ? 6
+      : day - 1)
   );
+
 
   monday.setHours(
     0,0,0,0
   );
 
 
-  const sunday =
-    new Date(monday);
-
-  sunday.setDate(
-    monday.getDate() + 6
-  );
-
-  sunday.setHours(
-    23,59,59,999
-  );
+  const dates=[];
 
 
-  return workouts.filter(w => {
+  for(
+    let i=0;
+    i<7;
+    i++
+  ){
 
     const d =
-      new Date(w.date);
+      new Date(monday);
 
-    return d >= monday &&
-           d <= sunday;
 
-  });
+    d.setDate(
+      monday.getDate()+i
+    );
+
+
+    dates.push(d);
+
+  }
+
+
+  return dates;
 
 }
 
 
-/* STATS */
+function getThisWeekWorkouts(){
+
+  const dates =
+    getWeekDates();
+
+
+  const start =
+    dates[0];
+
+  const end =
+    dates[6];
+
+
+  end.setHours(
+    23,59,59,999
+  );
+
+
+  return workouts.filter(
+    w => {
+
+      const d =
+        new Date(w.date);
+
+      return (
+        d >= start &&
+        d <= end
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   STATS
+========================= */
 
 function updateStats(){
 
@@ -774,29 +1024,39 @@ function updateStats(){
 
 
   document
-    .getElementById("totalWorkouts")
+    .getElementById(
+      "totalWorkouts"
+    )
     .textContent =
       total;
 
 
   document
-    .getElementById("totalMinutes")
+    .getElementById(
+      "totalMinutes"
+    )
     .textContent =
       minutes;
 
 
   const weekCount =
-    getThisWeekWorkouts().length;
+    getThisWeekWorkouts()
+      .length;
 
 
   document
-    .getElementById("goalText")
+    .getElementById(
+      "goalText"
+    )
     .textContent =
-      weekCount + " / 5 ครั้ง";
+      weekCount +
+      " / 5 ครั้ง";
 
 
   document
-    .getElementById("progress")
+    .getElementById(
+      "progress"
+    )
     .style.width =
       Math.min(
         weekCount / 5 * 100,
@@ -805,21 +1065,31 @@ function updateStats(){
 
 
   document
-    .getElementById("streak")
+    .getElementById(
+      "streak"
+    )
     .textContent =
       calculateStreak();
 
 }
 
 
-/* CALENDAR */
+/* =========================
+   TRAINING CHART
+========================= */
 
-function renderCalendar(){
+function renderChart(){
 
   const box =
-    document.getElementById("calendar");
+    document
+      .getElementById("chart");
 
-  box.innerHTML = "";
+
+  box.innerHTML="";
+
+
+  const dates =
+    getWeekDates();
 
 
   const names =
@@ -834,121 +1104,253 @@ function renderCalendar(){
     ];
 
 
-  const now =
-    new Date();
+  const values =
+    dates.map(
+      d => {
 
-  const todayISO =
-    now.toISOString().split("T")[0];
-
-
-  const day =
-    now.getDay();
+        const iso =
+          d.toISOString()
+            .split("T")[0];
 
 
-  const monday =
-    new Date(now);
+        return workouts
+          .filter(
+            w => w.date === iso
+          )
+          .reduce(
+            (sum,w) =>
+              sum +
+              Number(w.duration),
+            0
+          );
 
-  monday.setDate(
-    now.getDate() -
-    (day === 0 ? 6 : day - 1)
-  );
-
-
-  for(let i=0;i<7;i++){
-
-    const d =
-      new Date(monday);
-
-    d.setDate(
-      monday.getDate() + i
+      }
     );
 
 
-    const iso =
-      d.toISOString().split("T")[0];
+  const max =
+    Math.max(
+      ...values,
+      1
+    );
 
 
-    const dayWorkouts =
-      workouts.filter(
-        w => w.date === iso
+  dates.forEach(
+    (d,i) => {
+
+      const value =
+        values[i];
+
+
+      const column =
+        document
+          .createElement(
+            "div"
+          );
+
+
+      column.className =
+        "chart-column";
+
+
+      const height =
+        value
+          ? Math.max(
+              value / max * 100,
+              6
+            )
+          : 0;
+
+
+      column.innerHTML = `
+
+        <div class="chart-value">
+
+          ${
+            value
+              ? value + " นาที"
+              : ""
+          }
+
+        </div>
+
+        <div class="chart-bar-wrap">
+
+          <div
+            class="chart-bar"
+            style="
+              height:${height}%;
+            ">
+          </div>
+
+        </div>
+
+        <div class="chart-label">
+
+          ${names[i]}
+
+        </div>
+
+      `;
+
+
+      box.appendChild(
+        column
       );
 
-
-    const div =
-      document.createElement("div");
-
-
-    div.className =
-      "day" +
-      (
-        iso === todayISO
-          ? " active"
-          : ""
-      );
-
-
-    /* กดวันที่ */
-
-    div.onclick = function(){
-
-      openModal(iso);
-
-    };
-
-
-    div.innerHTML = `
-
-      <div class="day-name">
-        ${names[i]}
-      </div>
-
-      <div class="day-number">
-        ${d.getDate()}
-      </div>
-
-      ${
-        dayWorkouts.length
-
-        ?
-
-        `<div class="day-workout">
-          🏀 ${dayWorkouts.length} ซ้อม
-        </div>`
-
-        :
-
-        `<div class="day-name">
-          พัก
-        </div>`
-      }
-
-    `;
-
-
-    box.appendChild(div);
-
-  }
+    }
+  );
 
 }
 
 
-/* WORKOUT LIST */
+/* =========================
+   CALENDAR
+========================= */
+
+function renderCalendar(){
+
+  const box =
+    document
+      .getElementById(
+        "calendar"
+      );
+
+
+  box.innerHTML="";
+
+
+  const names =
+    [
+      "จ.",
+      "อ.",
+      "พ.",
+      "พฤ.",
+      "ศ.",
+      "ส.",
+      "อา."
+    ];
+
+
+  const todayISO =
+    new Date()
+      .toISOString()
+      .split("T")[0];
+
+
+  getWeekDates().forEach(
+    (d,i) => {
+
+      const iso =
+        d.toISOString()
+          .split("T")[0];
+
+
+      const count =
+        workouts.filter(
+          w =>
+            w.date === iso
+        ).length;
+
+
+      const div =
+        document
+          .createElement(
+            "div"
+          );
+
+
+      div.className =
+        "day" +
+        (
+          iso === todayISO
+            ? " active"
+            : ""
+        );
+
+
+      div.onclick =
+        () =>
+          openModal(iso);
+
+
+      div.innerHTML = `
+
+        <div class="day-name">
+
+          ${names[i]}
+
+        </div>
+
+        <div class="day-number">
+
+          ${d.getDate()}
+
+        </div>
+
+        ${
+          count
+
+          ?
+
+          `
+          <div class="day-workout">
+
+            🏀 ${count} ซ้อม
+
+          </div>
+          `
+
+          :
+
+          `
+          <div class="day-name">
+
+            พัก
+
+          </div>
+          `
+        }
+
+      `;
+
+
+      box.appendChild(
+        div
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   WORKOUT LIST
+========================= */
 
 function renderWorkouts(){
 
   const box =
-    document.getElementById("workouts");
+    document
+      .getElementById(
+        "workouts"
+      );
 
-  box.innerHTML = "";
+
+  box.innerHTML="";
 
 
-  if(!workouts.length){
+  if(
+    !workouts.length
+  ){
 
     box.innerHTML = `
 
       <div class="card empty">
 
         ยังไม่มีตารางซ้อม 🏀
+
         <br><br>
 
         กด
@@ -965,71 +1367,91 @@ function renderWorkouts(){
 
 
   const sorted =
-    [...workouts].sort(
-      (a,b) => {
+    [...workouts]
+      .sort(
+        (a,b) => {
 
-        const dateA =
-          new Date(
-            a.date + "T" + a.time
+          const dateA =
+            new Date(
+              a.date +
+              "T" +
+              a.time
+            );
+
+
+          const dateB =
+            new Date(
+              b.date +
+              "T" +
+              b.time
+            );
+
+
+          return dateB - dateA;
+
+        }
+      );
+
+
+  sorted.forEach(
+    w => {
+
+      const div =
+        document
+          .createElement(
+            "div"
           );
 
-        const dateB =
-          new Date(
-            b.date + "T" + b.time
-          );
 
-        return dateB - dateA;
-
-      }
-    );
+      div.className =
+        "card workout";
 
 
-  sorted.forEach(w => {
+      div.innerHTML = `
 
-    const div =
-      document.createElement("div");
+        <div class="workout-info">
 
+          <h3>
+            ${w.type}
+          </h3>
 
-    div.className =
-      "card workout";
+          <p>
 
+            ${formatDate(w.date)}
+            · ${w.time}
+            · ${w.duration} นาที
 
-    div.innerHTML = `
+          </p>
 
-      <div class="workout-info">
-
-        <h3>
-          ${w.type}
-        </h3>
-
-        <p>
-          ${formatDate(w.date)}
-          · ${w.time}
-          · ${w.duration} นาที
-        </p>
-
-      </div>
+        </div>
 
 
-      <button
-        class="delete"
-        onclick="deleteWorkout(${w.id})">
+        <button
+          class="delete"
+          onclick="
+            deleteWorkout(${w.id})
+          ">
 
-        🗑️
+          🗑️
 
-      </button>
+        </button>
 
-    `;
+      `;
 
 
-    box.appendChild(div);
+      box.appendChild(
+        div
+      );
 
-  });
+    }
+  );
 
 }
 
 
-/* DATE */
+/* =========================
+   DATE
+========================= */
 
 function formatDate(date){
 
@@ -1047,11 +1469,15 @@ function formatDate(date){
 }
 
 
-/* STREAK */
+/* =========================
+   STREAK
+========================= */
 
 function calculateStreak(){
 
-  if(!workouts.length)
+  if(
+    !workouts.length
+  )
     return 0;
 
 
@@ -1068,22 +1494,27 @@ function calculateStreak(){
   const today =
     new Date();
 
+
   today.setHours(
     0,0,0,0
   );
 
 
-  let streak = 0;
+  let streak=0;
 
 
-  for(let i=0;i<dates.length;i++){
+  for(
+    let i=0;
+    i<dates.length;
+    i++
+  ){
 
     const expected =
       new Date(today);
 
 
     expected.setDate(
-      today.getDate() - i
+      today.getDate()-i
     );
 
 
@@ -1093,7 +1524,10 @@ function calculateStreak(){
         .split("T")[0];
 
 
-    if(dates[i] === expectedISO){
+    if(
+      dates[i] ===
+      expectedISO
+    ){
 
       streak++;
 
@@ -1111,7 +1545,9 @@ function calculateStreak(){
 }
 
 
-/* CLOSE MODAL WHEN CLICK OUTSIDE */
+/* =========================
+   CLOSE OUTSIDE
+========================= */
 
 document
   .getElementById("modal")
@@ -1119,7 +1555,9 @@ document
     "click",
     function(e){
 
-      if(e.target === this){
+      if(
+        e.target === this
+      ){
 
         closeModal();
 
@@ -1129,20 +1567,24 @@ document
   );
 
 
-/* START */
-
-render();
-
+/* =========================
+   START
+========================= */
 
 function render(){
 
   updateStats();
+
+  renderChart();
 
   renderCalendar();
 
   renderWorkouts();
 
 }
+
+
+render();
 
 </script>
 
